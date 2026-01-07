@@ -1,0 +1,1 @@
+This is a project made after gettiing classes from IBM and our On the job traiining done in our class. This is a News Aggregator named Pulse made with HTML, CSS and Javascript. Use of bootstrap also is done . This is a combined project with my classmates.
