@@ -1,4 +1,4 @@
-const API_KEY ='f0537f89944ccb4226bcd39bd03dbcd4';
+const API_KEY ='29650ca2fdda94918f5359b6bd3dc5cd';
 const BASE_URL = 'https://gnews.io/api/v4';
 
 const grid = document.getElementById('newsGrid');
