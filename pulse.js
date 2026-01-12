@@ -1,4 +1,4 @@
-const API_KEY ='29650ca2fdda94918f5359b6bd3dc5cd';
+const API_KEY = '29650ca2fdda94918f5359b6bd3dc5cd';
 const BASE_URL = 'https://gnews.io/api/v4';
 
 const grid = document.getElementById('newsGrid');
@@ -10,9 +10,7 @@ const catBtns = document.querySelectorAll('.cat-btn');
 let currentCategory = 'general';
 let searchQuery = '';
 
-document.addEventListener('DOMContentLoaded', () => {
-    loadNews();
-});
+document.addEventListener('DOMContentLoaded', loadNews);
 
 catBtns.forEach(btn => {
     btn.addEventListener('click', () => {
@@ -23,7 +21,6 @@ catBtns.forEach(btn => {
         title.innerText = `${currentCategory.charAt(0).toUpperCase()}${currentCategory.slice(1)} News`;
         searchQuery = '';
         searchInput.value = '';
-
         loadNews();
     });
 });
@@ -38,7 +35,7 @@ searchInput.addEventListener('keyup', e => {
 async function loadNews() {
     grid.innerHTML = 'Loading...';
 
-    let url = searchQuery
+    const url = searchQuery
         ? `${BASE_URL}/search?q=${searchQuery}&lang=en&apikey=${API_KEY}`
         : `${BASE_URL}/top-headlines?category=${currentCategory}&lang=en&apikey=${API_KEY}`;
 
@@ -55,22 +52,27 @@ function renderNews(articles) {
     }
 
     const heroArticle = articles[0];
+
     hero.innerHTML = `
-        <div class="hero-card">
-            <img src="${heroArticle.image}">
-            <div class="hero-overlay">
-                <h1>${heroArticle.title}</h1>
+        <a href="${heroArticle.url}" target="_blank" rel="noopener noreferrer">
+            <div class="hero-card">
+                <img src="${heroArticle.image || ''}" alt="${heroArticle.title}">
+                <div class="hero-overlay">
+                    <h1>${heroArticle.title}</h1>
+                </div>
             </div>
-        </div>
+        </a>
     `;
 
     grid.innerHTML = articles.slice(1).map(a => `
-        <div class="card">
-            <img src="${a.image}">
-            <div class="card-body">
-                <div class="card-title">${a.title}</div>
-                <p>${a.description || ''}</p>
+        <a href="${a.url}" target="_blank" rel="noopener noreferrer">
+            <div class="card">
+                <img src="${a.image || ''}" alt="${a.title}">
+                <div class="card-body">
+                    <div class="card-title">${a.title}</div>
+                    <p>${a.description || ''}</p>
+                </div>
             </div>
-        </div>
+        </a>
     `).join('');
 }
